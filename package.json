@@ -1,5 +1,5 @@
 {
-  "name": "react-boilerplate",
+  "name": "Reddit-clone",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,8 +12,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@auth0/auth0-react": "^2.0.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "react": "^16.13.1",
+     "react-bootstrap": "^2.7.2",
     "react-dom": "^16.13.1"
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "jest": {
     "moduleNameMapper": {
