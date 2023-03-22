@@ -48,9 +48,10 @@ table {
 }
 
 body {
-  font-family: 'peppine';
+  font-family: 'Poppins';
 }
 
 .container {
   display: flex;
 }
+
