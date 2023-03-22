@@ -1,61 +1,85 @@
-import React from 'react'
-import PostItem from './PostItem'
+import React, { useState } from 'react'
+import PostItem from '../postitem/PostItem'
 import './Post.css'
+import { useAuth0 } from "@auth0/auth0-react";
+function Post() {
+    const [comment, setComment] = useState("");
 
-function Posts() {
-    
-    const Posts = [
-        {
-            upvote:547,
-            image:"https://images.pexels.com/photos/1324803/pexels-photo-1324803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: "Questions about new wallet",
-            user: "theindependentonline",
-            subreddit: "politics",
-            comment_count: 284,
-        },
-        {
-            upvote:27,
-            image:"https://images.pexels.com/photos/2387661/pexels-photo-2387661.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: "Amazing customer supports for child",
-            user: "thepez",
-            subreddit: "gaming",
-            comment_count: 70,
-        },
-        {
-            upvote:1064,
-            image:"https://images.pexels.com/photos/2444403/pexels-photo-2444403.jpeg?auto=compress&cs=tinysrgb&w=600",
-            title: "i saw enola holmes (the movie) and now i want to read something similar to that",
-            user: "cronaldo",
-            subreddit: "soccer",
-            comment_count: 60,
-        },
-        {
-            upvote:980,
-            image:"https://cdn.graciousquotes.com/wp-content/uploads/2021/05/Im-a-success-today-because-I-had-a-friend-who-believed-in-me-and-I-didnt-have-the-heart-to-let-him-down.-Abraham-Lincoln.jpg",
-            title: "Jorge Jesus to Ruben Dias: You'are leaving a club that is much bigger ",
-            user: "lionelandresmessi",
-            subreddit: "nba",
-            comment_count: 50,
-        },
-        {
-            upvote:5452,
-            image:"https://parade.com/.image/t_share/MTkzMDEwNDU3Mjc4MTYyNjQw/best-inspirational-quote.png",
-            title: "TIFU by identifying the wine used in Cathlic Communion",
-            user: "billTheGates",
-            subreddit: "technology",
-            comment_count: 284,
-        },
-       
-           
-        
-    ]
-    
+    const { isAuthenticated } = useAuth0();
+    const posts = [];
+    const posts1 = {
+        upvote: 10,
+        image: "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature-825x465.jpg",
+        title: "Question about new wallet",
+        user: "theindependentonline",
+        subreddit: "politics",
+        comment_count: 11
+    }
+    const posts2 = {
+        upvote: 20,
+        image: "https://icdn.isrgrajan.com/in/2022/11/Virat-Kohli.jpg",
+        title: "Virat Kohli always plays amazingly.",
+        user: "theindependentonline",
+        subreddit: "Sports",
+        comment_count: " 30"
+    }
+    const posts3 = {
+        upvote: 15,
+        image: "https://hips.hearstapps.com/clv.h-cdn.co/assets/18/02/1515470256-levi-guzman-268866.jpg",
+        title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, sint.",
+        user: "theindependentonline",
+        subreddit: "politics",
+        comment_count: "15"
+    }
+
+    posts.push(posts1, posts2, posts3);
+    localStorage.setItem("posts", JSON.stringify(posts));
+
+    const postComment = () => {
+        if (comment) {
+            const obj = {
+                upvote: 0,
+                image: "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature-825x465.jpg",
+                title: comment,
+                user: "theindependentonline",
+                subreddit: "general",
+                comment_count: 0
+            }
+            const newpost = JSON.parse(localStorage.getItem("post") || "[]");
+            newpost.push(obj);
+            localStorage.setItem("post", JSON.stringify(newpost));
+            setComment("");
+        }
+    }
+
     return (
         <div className='posts'>
-            {Posts.map(post => (
+            <div className="inputsection">
+                <input className='input' placeholder='Create Post' value={comment} onChange={e => setComment(e.target.value)} />
+                <button className='btn' onClick={postComment} disabled={!isAuthenticated}>Post</button>
+            </div>
+            {console.log(comment)}
+            {/* {posts.map(post => (
                 <PostItem post={post} />
-            ))}
+               
+            ))} */}
+            {
+                JSON.parse(localStorage.getItem("posts")).map((e, index) => {
+                    return (
+                        <PostItem post={e} />
+                    )
+                })
+            }
+             { JSON.parse(localStorage.getItem("post")) &&
+                JSON.parse(localStorage.getItem("post")).map((e, index) => {
+                    return (
+                        <PostItem post={e} key={index}/>
+                    )
+                })
+            }
         </div>
     )
 }
-export default Posts;
+
+export default Post
+
