@@ -1,14 +1,16 @@
-import './App.css';
-import SideNav from './SideNav'
-import Main from './Main'
+import "./App.css";
+import Main from "./components/main/Main";
+import SideNav from "./components/sidenav/SideNav";
+
 
 function App() {
   return (
     <div className="App">
-      <div className='container'>
-
-         <SideNav/>
-         <Main />
+      <div className="container">
+   
+          <SideNav />
+          <Main />
+         
       </div>
     </div>
   );
